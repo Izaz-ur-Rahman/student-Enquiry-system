@@ -108,8 +108,21 @@ export default function Enquiry() {
 
             </form>
 
-          </div>
 
+          </div>
+<EnquiryList/>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+function EnquiryList (){
+  return(
+    
+    <>
+    
           {/* Right Side */}
           <div className="lg:col-span-2">
 
@@ -270,10 +283,6 @@ export default function Enquiry() {
             </div>
 
           </div>
-
-        </div>
-
-      </div>
-    </div>
+    </>
   );
 }
