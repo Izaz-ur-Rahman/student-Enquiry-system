@@ -1,7 +1,13 @@
 let express = require("express");
 let mongoose = require('mongoose');
+const enquiryRouter = require("./App/Routes/web/enquiryRoutes");
 require('dotenv').config();
 let app = express();
+app.use(express.json());
+
+
+// Routes
+app.use("/api/website/enquiry/",enquiryRouter);
 
 mongoose.connect(process.env.DBURL).then(()=>{
     console.log("db connected successfully")
