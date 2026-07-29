@@ -1,25 +1,27 @@
-let mongoose = require("mongoose");
-let schema = mongoose.schema;
-let enquirySchema = new schema({
-    name:{
-        types:String,
-        require : true
-    },
-     email:{
-        types:String,
-        require : true,
-        unique: true
-    }
-    ,
-     phone:{
-        types:String,
-        require : true
-    },
+const mongoose = require("mongoose");
 
-     message:{
-        types:String,
-        require : true
+const Schema = mongoose.Schema;
+
+const enquirySchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true
     }
 });
-let enquiryModel = mongoose.model('enquiry',enquirySchema);
+
+const enquiryModel = mongoose.model("enquiry", enquirySchema);
+
 module.exports = enquiryModel;
