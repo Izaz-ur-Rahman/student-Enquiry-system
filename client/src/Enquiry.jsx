@@ -4,8 +4,19 @@ import EnquiryList from "./Enquiry/EnquiryList";
 export default function Enquiry() {
   const enquiryOnSubmit = (e) => {
     e.preventDefault();
+
+    let formData = {
+      name:e.target.name.value,
+      email:e.target.email.value,
+      phone:e.target.phone.value,
+      message:e.target.message.value
+    }
+    axios.post("http://localhost:8020/api/website/enquiry/insert",formData).then((res)=>{
+      console.log(res.data)
+    })
     alert("Backend will be connected later.");
   };
+
 
   return (
     <div className="min-h-screen bg-slate-100 py-8">
@@ -60,7 +71,7 @@ export default function Enquiry() {
 
                 <input
                   type="text"
-                  placeholder="Enter Name"
+                  placeholder="Enter Name" name = "name"
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -72,7 +83,7 @@ export default function Enquiry() {
 
                 <input
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Email"  name = "email"
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -84,7 +95,7 @@ export default function Enquiry() {
 
                 <input
                   type="text"
-                  placeholder="Enter Phone Number"
+                  placeholder="Enter Phone Number"  name = "phone"
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -96,7 +107,7 @@ export default function Enquiry() {
 
                 <textarea
                   rows="5"
-                  placeholder="Write Message..."
+                  placeholder="Write Message..."  name = "message"
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 ></textarea>
               </div>
