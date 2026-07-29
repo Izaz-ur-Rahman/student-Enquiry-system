@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
 import axios from "axios";
 export default function Enquiry() {
+  let [FormData,setFormData] = useState({
+    name:"",
+    email:"",
+    phone:"",
+    message:""
+  })
   const enquiryOnSubmit = (e) => {
     e.preventDefault();
 
@@ -27,6 +33,15 @@ axios.post(
     //alert("Backend will be connected later.");
   };
 
+  let getValue = (e)=>{
+    let InputName = e.target.name;
+    let InputValue = e.target.value;
+    let oldData = {...FormData};
+    console.log(InputName);
+    oldData[InputName] = InputValue;
+    setFormData(oldData);
+
+  }
 
   return (
     <div className="min-h-screen bg-slate-100 py-8">
@@ -81,7 +96,7 @@ axios.post(
 
                 <input
                   type="text"
-                  placeholder="Enter Name" name = "name"
+                  placeholder="Enter Name" value={FormData.name}  name = "name" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -93,7 +108,7 @@ axios.post(
 
                 <input
                   type="email"
-                  placeholder="Enter Email"  name = "email"
+                  placeholder="Enter Email" value={FormData.email}  name = "email" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -105,7 +120,7 @@ axios.post(
 
                 <input
                   type="text"
-                  placeholder="Enter Phone Number"  name = "phone"
+                  placeholder="Enter Phone Number"  value={FormData.phone} name = "phone" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -117,7 +132,7 @@ axios.post(
 
                 <textarea
                   rows="5"
-                  placeholder="Write Message..."  name = "message"
+                  placeholder="Write Message..."  value={FormData.message} name = "message" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 ></textarea>
               </div>

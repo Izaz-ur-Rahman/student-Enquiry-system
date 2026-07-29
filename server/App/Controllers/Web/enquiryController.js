@@ -23,13 +23,10 @@ const enquiryModel = require("../../Models/enquiry.model");
 
 const enquiryInsert = (req, res) => {
 
-    console.log("Headers:", req.headers);
-    console.log("Body:", req.body);
-    console.log("Body Type:", typeof req.body);
 
     const { name, email, phone, message } = req.body;
 
-    console.log(name, email, phone, message);
+   
 
     const enquiry = new enquiryModel({
         name,
