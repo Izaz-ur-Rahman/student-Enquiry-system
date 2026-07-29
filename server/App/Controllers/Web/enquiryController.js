@@ -1,20 +1,57 @@
+// const enquiryModel = require("../../Models/enquiry.model");
+
+// let enquiryInsert = (req,res)=>{
+//     let {sName,sEmail,sPhone,sMessage} = req.body;
+//     let enquiry = new enquiryModel({
+//         name:sName,
+//         email:sEmail,
+//         phone:sPhone,
+//         message: sMessage
+        
+//     })
+//     enquiry.save().then(()=>{
+//         res.send({status:"success",message:"Enquiry inserted successfully"});
+
+//     }).catch((err)=>{
+//         res.send({status:"failed",message:"Error why saving Enquiry",err});
+//     })
+// }
+
+// module.exports = {enquiryInsert}
+
 const enquiryModel = require("../../Models/enquiry.model");
 
-let enquiryInsert = (req,res)=>{
-    let {sName,sEmail,sPhone,sMessage} = req.body;
-    let enquiry = new enquiryModel({
-        name:sName,
-        email:sEmail,
-        phone:sPhone,
-        message: sMessage
-        
-    })
-    enquiry.save().then(()=>{
-        res.send({status:"success",message:"Enquiry inserted successfully"});
+const enquiryInsert = (req, res) => {
 
-    }).catch((err)=>{
-        res.send({status:"failed",message:"Error why saving Enquiry",err});
-    })
-}
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    console.log("Body Type:", typeof req.body);
 
-module.exports = {enquiryInsert}
+    const { name, email, phone, message } = req.body;
+
+    console.log(name, email, phone, message);
+
+    const enquiry = new enquiryModel({
+        name,
+        email,
+        phone,
+        message
+    });
+
+    enquiry.save()
+        .then(() => {
+            res.send({
+                status: "success",
+                message: "Enquiry inserted successfully"
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send({
+                status: "failed",
+                message: err.message
+            });
+        });
+};
+
+module.exports = { enquiryInsert };

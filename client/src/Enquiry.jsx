@@ -1,20 +1,30 @@
 import React from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
-
+import axios from "axios";
 export default function Enquiry() {
   const enquiryOnSubmit = (e) => {
     e.preventDefault();
 
     let formData = {
-      name:e.target.name.value,
-      email:e.target.email.value,
-      phone:e.target.phone.value,
-      message:e.target.message.value
-    }
-    axios.post("http://localhost:8020/api/website/enquiry/insert",formData).then((res)=>{
-      console.log(res.data)
-    })
-    alert("Backend will be connected later.");
+  name: e.target.name.value,
+  email: e.target.email.value,
+  phone: e.target.phone.value,
+  message: e.target.message.value
+};
+
+console.log(formData);
+
+axios.post(
+    "http://localhost:8020/api/website/enquiry/insert",
+    formData
+)
+.then((res)=>{
+    console.log(res.data);
+})
+.catch((err)=>{
+    console.log(err.response?.data);
+});
+    //alert("Backend will be connected later.");
   };
 
 
