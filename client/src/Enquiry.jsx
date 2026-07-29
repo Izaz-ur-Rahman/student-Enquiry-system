@@ -11,27 +11,59 @@ export default function Enquiry() {
   const enquiryOnSubmit = (e) => {
     e.preventDefault();
 
-    let formData = {
-  name: e.target.name.value,
-  email: e.target.email.value,
-  phone: e.target.phone.value,
-  message: e.target.message.value
+    console.log("Submitting...");
+    console.log(FormData);
+
+    axios.post(
+        "http://localhost:8020/api/website/enquiry/insert",
+        FormData
+    )
+    .then((res) => {
+        console.log("SUCCESS");
+        console.log(res.data);
+
+        setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: ""
+        });
+    })
+    .catch((err) => {
+        console.log("FAILED");
+        console.log(err.response?.data);
+    });
 };
+//   const enquiryOnSubmit = (e) => {
+//     e.preventDefault();
 
-console.log(formData);
+// //     let formData = {
+// //   name: e.target.name.value,
+// //   email: e.target.email.value,
+// //   phone: e.target.phone.value,
+// //   message: e.target.message.value
+// // };
 
-axios.post(
-    "http://localhost:8020/api/website/enquiry/insert",
-    formData
-)
-.then((res)=>{
-    console.log(res.data);
-})
-.catch((err)=>{
-    console.log(err.response?.data);
-});
-    //alert("Backend will be connected later.");
-  };
+// // console.log(formData);
+
+// axios.post(
+//     "http://localhost:8020/api/website/enquiry/insert",
+//     FormData
+// )
+// .then((res)=>{
+//   console.log("reseting here");
+//     setFormData({
+//         name:"",
+//     email:"",
+//     phone:"",
+//     message:""
+//     })
+// })
+// .catch((err)=>{
+//     console.log(err.response?.data);
+// });
+//     //alert("Backend will be connected later.");
+//   };
 
   let getValue = (e)=>{
     let InputName = e.target.name;
