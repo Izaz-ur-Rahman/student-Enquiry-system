@@ -1,14 +1,107 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
-
+import {ToastContainer,toast} from "react-toastify";
+import axios from "axios";
 export default function Enquiry() {
+  let [enquiryList,setEnquiryList] = useState([]);
+  let [FormData,setFormData] = useState({
+    name:"",
+    email:"",
+    phone:"",
+    message:""
+  })
   const enquiryOnSubmit = (e) => {
     e.preventDefault();
-    alert("Backend will be connected later.");
-  };
 
+   
+
+    axios.post(
+        "http://localhost:8020/api/website/enquiry/insert",
+        FormData
+    )
+    .then((res) => {
+      
+      toast.success("Enquiry submitted Successfully");
+        setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: ""
+        });
+    })
+    .catch((err) => {
+        console.log(err.response?.data);
+    });
+};
+//   const enquiryOnSubmit = (e) => {
+//     e.preventDefault();
+
+// //     let formData = {
+// //   name: e.target.name.value,
+// //   email: e.target.email.value,
+// //   phone: e.target.phone.value,
+// //   message: e.target.message.value
+// // };
+
+// // console.log(formData);
+
+// axios.post(
+//     "http://localhost:8020/api/website/enquiry/insert",
+//     FormData
+// )
+// .then((res)=>{
+//   console.log("reseting here");
+//     setFormData({
+//         name:"",
+//     email:"",
+//     phone:"",
+//     message:""
+//     })
+// })
+// .catch((err)=>{
+//     console.log(err.response?.data);
+// });
+//     //alert("Backend will be connected later.");
+//   };
+
+  let getValue = (e)=>{
+    let InputName = e.target.name;
+    let InputValue = e.target.value;
+    let oldData = {...FormData};
+    console.log(InputName);
+    oldData[InputName] = InputValue;
+    setFormData(oldData);
+
+  }
+// get list api consuming here
+// let getAllEnquiry = ()=>{
+//   axios.get("http://localhost:8020/api/website/enquiry/list")
+//   .then((res)=>{
+//     return res.data;
+//   }).then((finalData)=>{
+//     if(finalData == 1){
+//       setEnquiryList(finalData);
+//     }
+//   })
+// }
+let getAllEnquiry = () => {
+  axios
+    .get("http://localhost:8020/api/website/enquiry/list")
+    .then((res) => {
+      console.log("API Response:", res.data);
+
+      setEnquiryList(res.data.EnquiryList);
+    })
+    .catch((err) => {
+      console.log("Error:", err.response?.data);
+    });
+};
+useEffect(()=>{
+  getAllEnquiry(); 
+},[])
   return (
     <div className="min-h-screen bg-slate-100 py-8">
+      <ToastContainer/>
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}
@@ -60,7 +153,7 @@ export default function Enquiry() {
 
                 <input
                   type="text"
-                  placeholder="Enter Name"
+                  placeholder="Enter Name" value={FormData.name}  name = "name" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -72,7 +165,7 @@ export default function Enquiry() {
 
                 <input
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Email" value={FormData.email}  name = "email" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -84,7 +177,7 @@ export default function Enquiry() {
 
                 <input
                   type="text"
-                  placeholder="Enter Phone Number"
+                  placeholder="Enter Phone Number"  value={FormData.phone} name = "phone" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 />
               </div>
@@ -96,7 +189,7 @@ export default function Enquiry() {
 
                 <textarea
                   rows="5"
-                  placeholder="Write Message..."
+                  placeholder="Write Message..."  value={FormData.message} name = "message" onChange={getValue} 
                   className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-400"
                 ></textarea>
               </div>
@@ -111,7 +204,7 @@ export default function Enquiry() {
 
 
           </div>
-              <EnquiryList/>
+              <EnquiryList data={enquiryList}/>
         </div>
 
       </div>
