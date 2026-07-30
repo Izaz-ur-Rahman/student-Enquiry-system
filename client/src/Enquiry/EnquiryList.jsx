@@ -1,10 +1,19 @@
 
 import React from "react";
 import { Pencil, Trash2, Mail, Phone } from "lucide-react";
-
+import { ToastContainer,toast } from "react-toastify";
+import axios from "axios";
 export default function EnquiryList({ data }) {
+  let deleteEnq = (delID,getAllEnquiry)=>{
+    axios.delete(`http://localhost:8020/api/website/enquiry/delete/${delID}`)
+  .then((res)=>{
+    toast.success("Enquiry Deleted successfully")
+    getAllEnquiry();
+  })
+  }
   return (
     <div className="lg:col-span-2 min-w-0">
+      <ToastContainer/>
       <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
 
         {/* Header */}
@@ -156,7 +165,7 @@ export default function EnquiryList({ data }) {
 
                         {/* Edit */}
                         <button
-                          title="Edit enquiry"
+                          title="Edit enquiry" 
                           className="w-9 h-9 flex items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition duration-200"
                         >
                           <Pencil size={16} />
@@ -164,7 +173,7 @@ export default function EnquiryList({ data }) {
 
                         {/* Delete */}
                         <button
-                          title="Delete enquiry"
+                          title="Delete enquiry" onClick={()=>deleteEnq(item._id)}
                           className="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition duration-200"
                         >
                           <Trash2 size={16} />

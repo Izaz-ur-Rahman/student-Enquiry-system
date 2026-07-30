@@ -99,6 +99,8 @@ let getAllEnquiry = () => {
 useEffect(()=>{
   getAllEnquiry(); 
 },[])
+
+
   return (
     <div className="min-h-screen bg-slate-100 py-8">
       <ToastContainer/>
@@ -204,7 +206,7 @@ useEffect(()=>{
 
 
           </div>
-              <EnquiryList data={enquiryList}/>
+              <EnquiryList data={enquiryList} getAllEnquiry={getAllEnquiry}/>
         </div>
 
       </div>
