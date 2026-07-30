@@ -51,4 +51,8 @@ const enquiryInsert = (req, res) => {
         });
 };
 
-module.exports = { enquiryInsert };
+let EnquiryList = async (req,res)=>{
+let enquiry = await enquiryModel.find();
+res.send({status:"success",Enquiry:enquiry})
+}
+module.exports = { enquiryInsert ,EnquiryList};
