@@ -53,6 +53,6 @@ const enquiryInsert = (req, res) => {
 
 let EnquiryList = async (req,res)=>{
 let enquiry = await enquiryModel.find();
-res.send({status:"success",Enquiry:enquiry})
+res.send({status:1,EnquiryList:enquiry})
 }
 module.exports = { enquiryInsert ,EnquiryList};

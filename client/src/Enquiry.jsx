@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
 import {ToastContainer,toast} from "react-toastify";
 import axios from "axios";
 export default function Enquiry() {
+  let [enquiryList,setEnquiryList] = useState([]);
   let [FormData,setFormData] = useState({
     name:"",
     email:"",
@@ -72,7 +73,32 @@ export default function Enquiry() {
     setFormData(oldData);
 
   }
+// get list api consuming here
+// let getAllEnquiry = ()=>{
+//   axios.get("http://localhost:8020/api/website/enquiry/list")
+//   .then((res)=>{
+//     return res.data;
+//   }).then((finalData)=>{
+//     if(finalData == 1){
+//       setEnquiryList(finalData);
+//     }
+//   })
+// }
+let getAllEnquiry = () => {
+  axios
+    .get("http://localhost:8020/api/website/enquiry/list")
+    .then((res) => {
+      console.log("API Response:", res.data);
 
+      setEnquiryList(res.data.EnquiryList);
+    })
+    .catch((err) => {
+      console.log("Error:", err.response?.data);
+    });
+};
+useEffect(()=>{
+  getAllEnquiry(); 
+},[])
   return (
     <div className="min-h-screen bg-slate-100 py-8">
       <ToastContainer/>
@@ -178,7 +204,7 @@ export default function Enquiry() {
 
 
           </div>
-              <EnquiryList/>
+              <EnquiryList data={enquiryList}/>
         </div>
 
       </div>
