@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
+import {ToastContainer,toast} from "react-toastify";
 import axios from "axios";
 export default function Enquiry() {
   let [FormData,setFormData] = useState({
@@ -11,17 +12,15 @@ export default function Enquiry() {
   const enquiryOnSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Submitting...");
-    console.log(FormData);
+   
 
     axios.post(
         "http://localhost:8020/api/website/enquiry/insert",
         FormData
     )
     .then((res) => {
-        console.log("SUCCESS");
-        console.log(res.data);
-
+      
+      toast.success("Enquiry submitted Successfully");
         setFormData({
             name: "",
             email: "",
@@ -30,7 +29,6 @@ export default function Enquiry() {
         });
     })
     .catch((err) => {
-        console.log("FAILED");
         console.log(err.response?.data);
     });
 };
@@ -77,6 +75,7 @@ export default function Enquiry() {
 
   return (
     <div className="min-h-screen bg-slate-100 py-8">
+      <ToastContainer/>
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}
