@@ -28,6 +28,7 @@ export default function Enquiry() {
             phone: "",
             message: ""
         });
+         getAllEnquiry();
     })
     .catch((err) => {
         console.log(err.response?.data);

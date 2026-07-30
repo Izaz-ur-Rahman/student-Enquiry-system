@@ -3,11 +3,11 @@ import React from "react";
 import { Pencil, Trash2, Mail, Phone } from "lucide-react";
 import { ToastContainer,toast } from "react-toastify";
 import axios from "axios";
-export default function EnquiryList({ data }) {
-  let deleteEnq = (delID,getAllEnquiry)=>{
+export default function EnquiryList({ data ,getAllEnquiry}) {
+  let deleteEnq = (delID)=>{
     axios.delete(`http://localhost:8020/api/website/enquiry/delete/${delID}`)
   .then((res)=>{
-    toast.success("Enquiry Deleted successfully")
+    toast.success("Enquiry Deleted successfully");
     getAllEnquiry();
   })
   }
