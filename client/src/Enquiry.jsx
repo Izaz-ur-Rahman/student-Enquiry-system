@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
 import {ToastContainer,toast} from "react-toastify";
 import axios from "axios";
+import swal from "sweetalert2/src/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss"
 export default function Enquiry() {
   let [enquiryList,setEnquiryList] = useState([]);
   let [FormData,setFormData] = useState({
