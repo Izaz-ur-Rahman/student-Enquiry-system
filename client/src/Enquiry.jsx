@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import EnquiryList from "./Enquiry/EnquiryList";
 import {ToastContainer,toast} from "react-toastify";
 import axios from "axios";
+import swal from "sweetalert2/src/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss"
 export default function Enquiry() {
   let [enquiryList,setEnquiryList] = useState([]);
   let [FormData,setFormData] = useState({
@@ -28,6 +30,7 @@ export default function Enquiry() {
             phone: "",
             message: ""
         });
+         getAllEnquiry();
     })
     .catch((err) => {
         console.log(err.response?.data);
@@ -99,6 +102,8 @@ let getAllEnquiry = () => {
 useEffect(()=>{
   getAllEnquiry(); 
 },[])
+
+
   return (
     <div className="min-h-screen bg-slate-100 py-8">
       <ToastContainer/>
@@ -204,7 +209,7 @@ useEffect(()=>{
 
 
           </div>
-              <EnquiryList data={enquiryList}/>
+              <EnquiryList data={enquiryList} getAllEnquiry={getAllEnquiry}/>
         </div>
 
       </div>

@@ -50,9 +50,16 @@ const enquiryInsert = (req, res) => {
             });
         });
 };
-
+// list api 
 let EnquiryList = async (req,res)=>{
 let enquiry = await enquiryModel.find();
 res.send({status:1,EnquiryList:enquiry})
 }
-module.exports = { enquiryInsert ,EnquiryList};
+
+// delete api 
+let EnquiryDelete = async (req,res)=>{
+    let enqId = req.params.id;
+    let enquiry = await enquiryModel.deleteOne({_id:enqId});
+    res.send({status:1,message:"Enquiry delete successfully ",enquiry:enquiry})
+}
+module.exports = { enquiryInsert ,EnquiryList,EnquiryDelete};
